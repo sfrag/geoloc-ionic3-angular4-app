@@ -90,4 +90,5 @@
     <engine name="android" spec="~6.1.2" />
     <plugin name="cordova-sqlite-storage" spec="~2.0.4" />
     <allow-navigation href="http://192.168.1.34:8100" />
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="~4.0.4" />
 </widget>

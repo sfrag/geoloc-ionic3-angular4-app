@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { DbProvider } from '../../providers/db/db';
 
 /**
@@ -17,7 +17,11 @@ import { DbProvider } from '../../providers/db/db';
 export class ListPage {
 
   sitios: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db : DbProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public db : DbProvider,
+    public modalCtrl : ModalController) {
   }
 
   ionViewDidLoad() {
@@ -38,5 +42,10 @@ export class ListPage {
         });
       }
     },(err)=>{ alert('error al sacar datos de la base de datos'+err)});
+  }
+
+  muestraSitio(sitio){
+    let modalSitio = this.modalCtrl.create('ModalDetalleSitioPage', sitio);
+    modalSitio.present();
   }
 }
