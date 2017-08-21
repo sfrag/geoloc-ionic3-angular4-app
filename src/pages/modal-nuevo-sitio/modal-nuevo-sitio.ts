@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-import { DbProvider } from '../../providers/db/db';
+import { FirebaseDbProvider } from '../../providers/firebase-db/firebase-db';
+
+//Antes de poner firebase
+//import { DbProvider } from '../../providers/db/db';
 
 declare var google: any;
 /**
@@ -24,7 +27,13 @@ export class ModalNuevoSitioPage {
   description: string = '';
   foto: any = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, private camera: Camera, private db: DbProvider) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private viewCtrl: ViewController, 
+    private camera: Camera, 
+    //private db: DbProvider
+    private dbFirebase: FirebaseDbProvider) {
   }
 
   ionViewDidLoad() {
@@ -83,9 +92,15 @@ export class ModalNuevoSitioPage {
       description: this.description,
       foto: this.foto
     }
-    this.db.addSitio(sitio).then((res)=>{this.cerrarModal();
+    // No firebase
+    /* this.dbFirebase.addSitio(sitio).then((res)=>{this.cerrarModal();
       alert('Introducido en la base de datos');
-    },(err)=>{ alert('error al meter en la bd'+err)})
+    },(err)=>{ alert('error al meter en la bd'+err)}) */
+
+    this.dbFirebase.guardarSitio(sitio).then(res=>{
+      console.log('Sitio guardado en firebase');
+      this.cerrarModal();
+    })
   }
 
 }

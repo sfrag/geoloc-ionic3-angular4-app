@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MyApp } from './app.component';
 import { DbProvider } from '../providers/db/db';
 import { AuthProvider } from '../providers/auth/auth';
+import { FirebaseDbProvider } from '../providers/firebase-db/firebase-db';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB_0wwM3Oliu-7vauZ9m20Mzojxa7QCAjk",
@@ -47,7 +48,8 @@ export const firebaseConfig = {
     DbProvider,
     SQLite,
     LaunchNavigator,
-    AuthProvider
+    AuthProvider,
+    FirebaseDbProvider
   ]
 })
 export class AppModule {}

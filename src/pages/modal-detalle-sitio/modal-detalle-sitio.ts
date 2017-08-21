@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { DbProvider } from '../../providers/db/db';
+//import { DbProvider } from '../../providers/db/db';
+import { FirebaseDbProvider } from '../../providers/firebase-db/firebase-db';
 
 /**
  * Generated class for the ModalDetalleSitioPage page.
@@ -27,7 +28,9 @@ export class ModalDetalleSitioPage {
     private viewCtrl: ViewController,
     private launchNavigator: LaunchNavigator,
     private camera: Camera,
-    private db: DbProvider ) {
+    //private db: DbProvider
+    private dbFirebase: FirebaseDbProvider 
+    ) {
       this.sitio = this.navParams.data;
     }
 
@@ -71,8 +74,17 @@ export class ModalDetalleSitioPage {
   }
 
   guardarCambios(){
-    this.db.modificaSitio(this.sitio).then((res)=>{
-      this.edit = false;
-    },(err)=>{alert('error al meter en la bd'+err)});
+    let sitio = {
+      id: this.sitio.id,
+      lat: this.sitio.lat,
+      lng: this.sitio.lng,
+      address: this.sitio.address,
+      description: this.sitio.description,
+      foto: this.sitio.foto
+    }
+    this.dbFirebase.guardarSitio(sitio).then(res=>{
+      console.log('Sitio modificado en firebase');
+      this.cerrarModal();
+    })
   }
 }

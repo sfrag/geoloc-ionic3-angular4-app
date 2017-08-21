@@ -43,4 +43,9 @@ export class AuthProvider {
     })
   }
 
+  //Obtenemos el id del usuario
+    getUser(){
+      return this.afAuth.auth.currentUser.uid;
+    }
+
 }
