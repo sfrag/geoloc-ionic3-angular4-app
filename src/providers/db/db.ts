@@ -39,4 +39,8 @@ export class DbProvider {
     return this.db.executeSql(sql,{});
   }
 
+  public modificaSitio(sitio){
+    let sql = "UPDATE sitios SET lat = ?, lng = ?, address = ?, description = ?, foto = ? WHERE id = ?";
+    return this.db.executeSql(sql,[sitio.lat,sitio.lng,sitio.address,sitio.description,sitio.foto,sitio.id]);
+  }
 }
